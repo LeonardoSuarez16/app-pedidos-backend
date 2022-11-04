@@ -1,30 +1,29 @@
+import {authenticate} from '@loopback/authentication';
 import {
   Count,
   CountSchema,
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
 import {Producto} from '../models';
 import {ProductoRepository} from '../repositories';
 
+//este authenticate es el que final mente da permiso a los roles de cada usuario en este caso esta protegiendo tos los de productos por que lo
+//pusimos de primero pero si quisieramos lo poniamos ensima de una funcion sola y solo proteje esa
+@authenticate("admin")
 export class ProductoController {
   constructor(
     @repository(ProductoRepository)
     public productoRepository : ProductoRepository,
   ) {}
+
 
   @post('/productos')
   @response(200, {
@@ -47,6 +46,11 @@ export class ProductoController {
     return this.productoRepository.create(producto);
   }
 
+
+  // por ejemplo si queremos que esta funcion pase por alto y no tenga protecion ya que el authentication esta protegiendo a todas en este momento
+  // solo ponemos esto para que salte esta:
+  
+  @authenticate.skip()
   @get('/productos/count')
   @response(200, {
     description: 'Producto model count',

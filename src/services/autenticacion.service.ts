@@ -44,7 +44,8 @@ export class AutenticacionService {
 
   GenerarTokenJWT(persona: Persona) {
     let token = jwt.sign({
-      data:{
+      data: {
+        /// si quisieramos incluir los roles tocaria ponerlos aqui como un atributo mas o al final de la linea 51
         id: persona.id,
         correo: persona.correo,
         nombre: persona.nombres + " " + persona.apellidos
@@ -55,7 +56,7 @@ export class AutenticacionService {
       llaves.claveJWT)
     return token;
   }
-  ValidarToken(token: string) {
+  ValidarTokenJWT(token: string) {
     try {
       let datos = jwt.verify(token, llaves.claveJWT);
       return datos;
