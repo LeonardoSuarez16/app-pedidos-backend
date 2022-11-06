@@ -49,7 +49,6 @@ export class ProductoController {
 
   // por ejemplo si queremos que esta funcion pase por alto y no tenga protecion ya que el authentication esta protegiendo a todas en este momento
   // solo ponemos esto para que salte esta:
-  
   @authenticate.skip()
   @get('/productos/count')
   @response(200, {

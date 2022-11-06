@@ -39,7 +39,7 @@ export class AutenticacionService {
     } catch {
       return false;
 
-      }
+     }
   }
 
   GenerarTokenJWT(persona: Persona) {
